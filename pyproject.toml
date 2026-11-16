@@ -1,0 +1,40 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "qnx-doctor"
+version = "0.1.0"
+description = "Static analyzer for QNX 8.0 real-time projects — 22 RT/QNX-specific checks, SARIF/JSON/HTML reports, no SDP required"
+readme = "README.md"
+license = { text = "MIT" }
+authors = [{ name = "Syarip (kingoftheland)" }]
+requires-python = ">=3.11"
+keywords = ["qnx", "rtos", "real-time", "static-analysis", "neutrino", "hackathon"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Software Development :: Quality Assurance",
+]
+dependencies = []  # stdlib only — runs on any Linux host without the QNX SDP
+
+[project.urls]
+Homepage = "https://github.com/kingoftheland/qnx-doctor"
+Repository = "https://github.com/kingoftheland/qnx-doctor"
+Issues = "https://github.com/kingoftheland/qnx-doctor/issues"
+
+[project.scripts]
+qnx-doctor = "qnx_doctor.cli:main"
+
+[tool.setuptools]
+package-dir = { "" = "src" }
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+qnx_doctor = ["templates/**/*", "templates/*"]

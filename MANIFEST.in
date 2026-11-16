@@ -1,0 +1,2 @@
+recursive-include src/qnx_doctor/templates *
+include README.md LICENSE CONTRIBUTING.md
