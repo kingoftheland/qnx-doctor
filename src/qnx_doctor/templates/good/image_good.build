@@ -1,0 +1,19 @@
+# image_good.build — CORRECT buildfile (fixture for qnx-doctor).
+# Pattern: QNX "From The Board Up #2" x86_64 multiboot image for QEMU.
+[image=0x400000]
+[virtual=x86_64,multiboot] boot = {
+    startup-x86 -D 8250
+    procnto-smp-instr
+}
+[+script] init = {
+    display_msg "Welcome to QNX 8.0"
+    SYSNAME=nto
+    TERM=qansi
+    devc-ser8250 &
+    reopen /dev/ser1
+    [+session] sh
+}
+libc.so
+devc-ser8250
+sh
+[type=link] /usr/lib/ldqnx.so.2=/proc/boot/libc.so
