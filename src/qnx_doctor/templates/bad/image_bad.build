@@ -1,0 +1,15 @@
+# image_bad.build — INTENTIONALLY BUGGY buildfile (fixture for qnx-doctor).
+# BF-01: .bootstrap has no procnto — the image cannot boot.
+# BF-02: virtual=x86_64 but startup-rpi4 (ARM) — architecture mismatch.
+# BF-03: script starts "myapp" but myapp is not in the image file list.
+# BF-04: no libc.so and no ldqnx.so.2 link.
+# BF-05: [+session] without a preceding reopen.
+[virtual=x86_64,multiboot] boot = {
+    startup-rpi4 -D 8250
+}
+[+script] init = {
+    display_msg "Welcome to QNX 8.0"
+    myapp &
+    [+session] esh
+}
+esh
