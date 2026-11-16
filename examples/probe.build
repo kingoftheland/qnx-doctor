@@ -1,0 +1,23 @@
+# probe.build — buildfile for the QNX Doctor runtime probe (x86_64, QEMU).
+# Pattern: QNX "From The Board Up #2" multiboot image.
+# Requires the cross-compiled `probe` binary next to this file:
+#   qcc -V gcc_ntox86_64 probe.c -o probe
+#   mkifs probe.build probe.ifs
+[image=0x400000]
+[virtual=x86_64,multiboot] boot = {
+    startup-x86 -D 8250
+    procnto-smp-instr
+}
+[+script] init = {
+    display_msg "QNX Doctor probe"
+    SYSNAME=nto
+    TERM=qansi
+    devc-ser8250 &
+    reopen /dev/ser1
+    [+session] probe
+}
+libc.so
+libm.so
+devc-ser8250
+probe
+[type=link] /usr/lib/ldqnx.so.2=/proc/boot/libc.so
